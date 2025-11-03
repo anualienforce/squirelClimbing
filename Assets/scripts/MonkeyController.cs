@@ -1,5 +1,6 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
@@ -19,8 +20,35 @@ public class MonkeyController : MonoBehaviour
     private float scoreTimer = 0f;
     private float scoreMultiplier = 1f;
     private float baseScoreInterval = 1f; // normal 1 second per score increment
-   
 
+    public AudioSource audioSource;
+    public AudioClip flipSound;
+
+    [SerializeField] private AudioClip powerUpSound;
+    [SerializeField][Range(0f, 1f)] private float powerUpVolume = 1f;
+    private static AudioSource uiAudioSource;
+
+    private void Awake()
+    {
+        if (uiAudioSource == null)
+        {
+            GameObject audioObj = new GameObject("UIAudioSource");
+            uiAudioSource = audioObj.AddComponent<AudioSource>();
+            uiAudioSource.playOnAwake = false;
+            uiAudioSource.spatialBlend = 0f; // 2D sound
+            DontDestroyOnLoad(audioObj);
+        }
+    }
+
+    private void HandlePowerUpPickup(GameObject powerUp, string type)
+    {
+        Debug.Log($"{type} power-up collected");
+        Destroy(powerUp);
+
+        // Play sound
+        if (powerUpSound != null && uiAudioSource != null)
+            uiAudioSource.PlayOneShot(powerUpSound, powerUpVolume);
+    }
     public void SetScoreMultiplier(float multiplier)
     {
         scoreMultiplier = multiplier;
@@ -62,8 +90,16 @@ public class MonkeyController : MonoBehaviour
         transform.localScale = scale;
 
         // Shift monkey left or right on flip for climbing sides
-        float xPos = climbingRight ? .5f : -.5f;
+        float xPos = climbingRight ? 0.5f : -0.5f;
         transform.position = new Vector3(xPos, transform.position.y, transform.position.z);
+
+        // 👇 Play flip sound
+        if (audioSource != null && flipSound != null)
+            audioSource.PlayOneShot(flipSound);
+
+        // 👇 Subtle camera shake when flip happens
+        if (CameraShake.Instance != null)
+            CameraShake.Instance.TriggerShake(0.02f, 0.01f);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -95,18 +131,17 @@ public class MonkeyController : MonoBehaviour
         }
         if (collision.CompareTag("SlowPowerUp"))
         {
-            Debug.Log("slowpup");
-            Destroy(collision.gameObject);
+            HandlePowerUpPickup(collision.gameObject, "slow");
             PowerUpManager.Instance.AddSlowPowerUp();
         }
-        if (collision.CompareTag("Invincible"))
+        else if (collision.CompareTag("Invincible"))
         {
-            Destroy(collision.gameObject);
+            HandlePowerUpPickup(collision.gameObject, "invincible");
             PowerUpManager.Instance.AddInvinciblePowerUp();
         }
-        if (collision.CompareTag("ScoreMultiplier"))
+        else if (collision.CompareTag("ScoreMultiplier"))
         {
-            Destroy(collision.gameObject);
+            HandlePowerUpPickup(collision.gameObject, "multiplier");
             PowerUpManager.Instance.AddMultiplierPowerUp();
         }
 
