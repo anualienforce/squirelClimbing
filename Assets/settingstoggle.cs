@@ -6,6 +6,8 @@ public class SettingsButton : MonoBehaviour
     public Button settingsButton;   // Assign your Settings button here
     public GameObject soundButton;  // Assign your Sound button here
     public GameObject Shopbutton;
+    public GameObject ratebtn;
+    public GameObject privacybtn;
 
     private void Start()
     {
@@ -23,6 +25,14 @@ public class SettingsButton : MonoBehaviour
         {
             Shopbutton.SetActive(false);
         }
+        if (ratebtn != null)
+        {
+            ratebtn.SetActive(false);
+        }
+        if (privacybtn != null)
+        {
+            privacybtn.SetActive(false);
+        }
     }
 
     private void ToggleSoundButton()
@@ -35,6 +45,13 @@ public class SettingsButton : MonoBehaviour
         {
             Shopbutton.SetActive(!Shopbutton.activeSelf);
         }
-
+        if (ratebtn != null)
+        {
+            ratebtn.SetActive(!ratebtn.activeSelf);
+        }
+        if (privacybtn != null)
+        {
+            privacybtn.SetActive(!privacybtn.activeSelf);
+        }
     }
 }
