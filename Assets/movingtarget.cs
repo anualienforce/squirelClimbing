@@ -32,13 +32,17 @@ public class MovingTarget : MonoBehaviour
 
     private void Update()
     {
-        if (!shouldMove) return;
-
-        transform.position += Vector3.left * moveSpeed * Time.deltaTime;
-
-        if (transform.position.x <= disableX)
+        if (MonkeyController.checkTap)
         {
-            gameObject.SetActive(false);
+            if (!shouldMove) return;
+
+            transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+
+            if (transform.position.x <= disableX)
+            {
+                gameObject.SetActive(false);
+            }
         }
+
     }
 }

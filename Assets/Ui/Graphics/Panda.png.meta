@@ -1,0 +1,311 @@
+fileFormatVersion: 2
+guid: b95ded25580d0134fba8a45398d4ed18
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9056969288295072004
+    second: Panda_0
+  - first:
+      213: -8931439474058242547
+    second: Panda_1
+  - first:
+      213: -4255352326557910521
+    second: Panda_2
+  - first:
+      213: 6819350346071405061
+    second: Panda_3
+  - first:
+      213: 795783861144006179
+    second: Panda_4
+  - first:
+      213: -8585138150297570470
+    second: Panda_5
+  - first:
+      213: 5993830395790235014
+    second: Panda_6
+  - first:
+      213: 4501078359215533328
+    second: Panda_7
+  - first:
+      213: 5013861316206603787
+    second: Panda_8
+  - first:
+      213: 1828720996745120497
+    second: Panda_9
+  - first:
+      213: -5527376614135088681
+    second: Panda_10
+  - first:
+      213: 7215434136467863768
+    second: Panda_11
+  - first:
+      213: 1839339713807986164
+    second: Panda_12
+  - first:
+      213: -8826860229717134271
+    second: Panda_13
+  - first:
+      213: -6690741878939690024
+    second: Panda_14
+  - first:
+      213: -5902214004097884723
+    second: Panda_15
+  - first:
+      213: 5844325089828257646
+    second: Panda_16
+  - first:
+      213: 8631250925479265906
+    second: Panda_17
+  - first:
+      213: -7874907083252373820
+    second: Panda_18
+  - first:
+      213: -8128442580001450121
+    second: Panda_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Panda_0
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 295
+        width: 423
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4014372f491d0bd70800000000000000
+      internalID: 9056969288295072004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panda_3
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 267
+        width: 368
+        height: 271
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 502f580620333ae50800000000000000
+      internalID: 6819350346071405061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panda_8
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 0
+        width: 422
+        height: 276
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0e21917d40d49540800000000000000
+      internalID: 5013861316206603787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Panda_18
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 78
+        width: 232
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c6e8871bb5b6b290800000000000000
+      internalID: -7874907083252373820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: fd9e923ad3d95b247b6acef4ca349f69
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Panda_0: 9056969288295072004
+      Panda_1: -8931439474058242547
+      Panda_10: -5527376614135088681
+      Panda_11: 7215434136467863768
+      Panda_12: 1839339713807986164
+      Panda_13: -8826860229717134271
+      Panda_14: -6690741878939690024
+      Panda_15: -5902214004097884723
+      Panda_16: 5844325089828257646
+      Panda_17: 8631250925479265906
+      Panda_18: -7874907083252373820
+      Panda_19: -8128442580001450121
+      Panda_2: -4255352326557910521
+      Panda_3: 6819350346071405061
+      Panda_4: 795783861144006179
+      Panda_5: -8585138150297570470
+      Panda_6: 5993830395790235014
+      Panda_7: 4501078359215533328
+      Panda_8: 5013861316206603787
+      Panda_9: 1828720996745120497
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -4,8 +4,12 @@ using System.Collections;
 
 public class ExitPanelManager : MonoBehaviour
 {
+
     [Header("UI References")]
+
     public GameObject exitPanel;
+    public GameObject inexitPanel;
+
     public Button yesButton;
     public Button noButton;
 
@@ -20,7 +24,7 @@ public class ExitPanelManager : MonoBehaviour
 
     private void Start()
     {
-        if (exitPanel != null)
+        if (inexitPanel != null)
             exitPanel.SetActive(false);
 
         if (yesButton != null)
@@ -40,13 +44,18 @@ public class ExitPanelManager : MonoBehaviour
                 (gameOverPanel != null && gameOverPanel.activeSelf))
                 return;
 
-            if (exitPanel == null) return;
+            if (inexitPanel == null) return;
 
-            if (exitPanel.activeSelf)
+            if (inexitPanel.activeSelf)
                 StartCoroutine(HideExitPanel());
             else
                 StartCoroutine(ShowExitPanel());
         }
+    }
+
+    public void ExitButton()
+    {
+        StartCoroutine(ShowExitPanel());
     }
 
     IEnumerator ShowExitPanel()
@@ -58,16 +67,16 @@ public class ExitPanelManager : MonoBehaviour
         float timer = 0f;
         Vector3 startScale = Vector3.zero;
         Vector3 endScale = Vector3.one;
-        exitPanel.transform.localScale = startScale;
+        inexitPanel.transform.localScale = startScale;
 
         while (timer < animDuration)
         {
             timer += Time.unscaledDeltaTime;
-            exitPanel.transform.localScale = Vector3.Lerp(startScale, endScale, timer / animDuration);
+            inexitPanel.transform.localScale = Vector3.Lerp(startScale, endScale, timer / animDuration);
             yield return null;
         }
 
-        exitPanel.transform.localScale = endScale;
+        inexitPanel.transform.localScale = endScale;
         Time.timeScale = 0f; // pause game
     }
 
@@ -82,11 +91,11 @@ public class ExitPanelManager : MonoBehaviour
         while (timer < animDuration)
         {
             timer += Time.unscaledDeltaTime;
-            exitPanel.transform.localScale = Vector3.Lerp(startScale, endScale, timer / animDuration);
+            inexitPanel.transform.localScale = Vector3.Lerp(startScale, endScale, timer / animDuration);
             yield return null;
         }
 
-        exitPanel.transform.localScale = endScale;
+        inexitPanel.transform.localScale = endScale;
         exitPanel.SetActive(false);
         isPaused = false;
     }

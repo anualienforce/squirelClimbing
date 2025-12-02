@@ -43,7 +43,7 @@ public class ButtonBreathingWithSound : MonoBehaviour
         transform.localScale = originalScale * scale;
     }
 
-    void PlayClickSound()
+  public  void PlayClickSound()
     {
         if (clickSound != null && uiAudioSource != null)
             uiAudioSource.PlayOneShot(clickSound, volume);

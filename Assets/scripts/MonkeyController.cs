@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.EventSystems;
@@ -28,6 +29,14 @@ public class MonkeyController : MonoBehaviour
     [SerializeField][Range(0f, 1f)] private float powerUpVolume = 1f;
     private static AudioSource uiAudioSource;
 
+
+    [SerializeField] Animator animator;
+    [SerializeField] GameObject dizzyEffect;
+    [SerializeField] GameObject pandaSadface;
+    public AudioClip dieSound;
+    public AudioClip taptoplaySound;
+
+    public static bool checkTap;
     private void Awake()
     {
         if (uiAudioSource == null)
@@ -37,6 +46,9 @@ public class MonkeyController : MonoBehaviour
             uiAudioSource.playOnAwake = false;
             uiAudioSource.spatialBlend = 0f; // 2D sound
             DontDestroyOnLoad(audioObj);
+            animator = GetComponent<Animator>();
+
+
         }
     }
 
@@ -54,52 +66,86 @@ public class MonkeyController : MonoBehaviour
         scoreMultiplier = multiplier;
     }
 
-    
+    void Start()
+    {
+        checkTap = false;
+        bool musicOn = PlayerPrefs.GetInt("MusicOn", 1) == 1;
+
+        if (musicOn)
+        {
+            BackgroundMusic.Instance?.PlayMusic();
+        }
+        else
+        {
+            BackgroundMusic.Instance?.StopMusic();
+        }
+        
+        animator.GetComponent<Animator>();
+    }
+
     private void Update()
     {
         if (isGameOver) return;
         // Move monkey upward constantly
-        scoreTimer += Time.deltaTime * scoreMultiplier;  // multiply deltaTime
-        if (scoreTimer >= baseScoreInterval)
+
+        if (checkTap)
         {
-            score++;
-            scoreTimer -= baseScoreInterval;
-            UpdateScoreUI();
+            scoreTimer += Time.deltaTime * scoreMultiplier;  // multiply deltaTime
+            if (scoreTimer >= baseScoreInterval)
+            {
+                score++;
+                scoreTimer -= baseScoreInterval;
+                UpdateScoreUI();
+            }
         }
 
-        climbSpeed = Mathf.Min(climbSpeed + speedIncreaseRate * Time.deltaTime, maxClimbSpeed);
 
-        transform.Translate(Vector2.up * climbSpeed * Time.deltaTime);
+        if (checkTap)
+        {
+            climbSpeed = Mathf.Min(climbSpeed + speedIncreaseRate * Time.deltaTime, maxClimbSpeed);
 
-        // Flip direction on screen tap or mouse click
-       
+            transform.Translate(Vector2.up * climbSpeed * Time.deltaTime);
+
+            climbSpeed = Mathf.Min(climbSpeed + speedIncreaseRate * Time.deltaTime, maxClimbSpeed);
+            animator.speed = 1f + (climbSpeed - 3f) / 280f;  // start normal, only increase later
+            //  Debug.Log(animator.speed);
+
+        }
+
+
+
     }
     private void UpdateScoreUI()
     {
         if (currentScoreText != null)
         {
-            currentScoreText.text = "Score: " + score.ToString();
+            currentScoreText.text = "" + score.ToString();
         }
     }
 
     public void Flip()
     {
-        climbingRight = !climbingRight;
-        Vector3 scale = transform.localScale;
-        scale.x = climbingRight ? 0.5f : -0.5f;
-        transform.localScale = scale;
+        if (checkTap)
+        {
+            climbingRight = !climbingRight;
+            Vector3 scale = transform.localScale;
+            scale.x = climbingRight ? 0.7f : -0.7f;
+            transform.localScale = scale;
 
-        // Shift monkey left or right on flip for climbing sides
-        float xPos = climbingRight ? 0.5f : -0.5f;
-        transform.position = new Vector3(xPos, transform.position.y, transform.position.z);
 
-        // 👇 Play flip sound
-        if (audioSource != null && flipSound != null)
-            audioSource.PlayOneShot(flipSound);
+            // Shift monkey left or right on flip for climbing sides
+            float xPos = climbingRight ? 0.37f : -0.37f;
+            transform.position = new Vector3(xPos, transform.position.y, transform.position.z);
 
-        // 👇 Subtle camera shake when flip happens
-        if (CameraShake.Instance != null)
-            CameraShake.Instance.TriggerShake(0.02f, 0.01f);
+            // 👇 Play flip sound
+            if (audioSource != null && flipSound != null)
+                audioSource.PlayOneShot(flipSound);
+
+            // 👇 Subtle camera shake when flip happens
+            if (CameraShake.Instance != null)
+                CameraShake.Instance.TriggerShake(0.02f, 0.01f);
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -107,7 +153,10 @@ public class MonkeyController : MonoBehaviour
         {
             isGameOver = true;
             Debug.Log("Game Over!");
-
+            dizzyEffect.SetActive(true);
+            pandaSadface.SetActive(true);
+            animator.SetBool("IsGoUp", false);
+            uiAudioSource.PlayOneShot(dieSound, powerUpVolume);
             // Save current score to PlayerPrefs
             PlayerPrefs.SetInt("LastScore", score);
 
@@ -127,7 +176,8 @@ public class MonkeyController : MonoBehaviour
                 gameOverHighScoreText.text = "High Score: " + highScore.ToString();
 
             if (gameOverPanel != null)
-                gameOverPanel.SetActive(true);
+                StartCoroutine(gameoverwait());
+
         }
         if (collision.CompareTag("SlowPowerUp"))
         {
@@ -147,9 +197,25 @@ public class MonkeyController : MonoBehaviour
 
     }
 
+    IEnumerator gameoverwait()
+    {
+        if (BackgroundMusic.Instance != null)
+            BackgroundMusic.Instance.StopMusic();
+        yield return new WaitForSeconds(1.5f);
+        gameOverPanel.SetActive(true);
+
+    }
+
     public void ReplayGame()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Taptoplay()
+    {
+        checkTap = true;
+        uiAudioSource.PlayOneShot(taptoplaySound, powerUpVolume);
+        animator.SetBool("IsGoUp", true);
     }
 }

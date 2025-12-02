@@ -14,13 +14,17 @@ public class CoinUI : MonoBehaviour
 
     private void Start()
     {
-        UpdateCoinText();
+       
     }
 
+    void Update()
+    {
+         UpdateCoinText();
+    }
     public void UpdateCoinText()
     {
         int coins = PlayerPrefs.GetInt("Coins", 0);
         if (coinText != null)
-            coinText.text = "Coins: " + coins;
+            coinText.text = "" + coins;
     }
 }

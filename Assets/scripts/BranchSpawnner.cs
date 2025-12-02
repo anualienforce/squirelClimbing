@@ -40,7 +40,7 @@ public class BranchSpawner : MonoBehaviour
     {
         prevBranchY = lastSpawnY;
 
-        lastSpawnY += Random.Range(1.3f, 3f);
+        lastSpawnY += Random.Range(1.6f, 3.2f);
         bool spawnLeft = Random.value > 0.5f;
 
         Vector3 spawnPos = spawnLeft ? new Vector3(-1f, lastSpawnY, 0f) : new Vector3(1f, lastSpawnY, 0f);
@@ -68,13 +68,15 @@ public class BranchSpawner : MonoBehaviour
     {
         if (upperY - lowerY < 1f) return;
 
+
         int groupCount = Random.Range(minCoinGroups, maxCoinGroups + 1);
         float sectionHeight = (upperY - lowerY) / (groupCount + 1);
 
         for (int i = 1; i <= groupCount; i++)
         {
             float groupCenterY = lowerY + (sectionHeight * i);
-            int coinsInThisGroup = Random.Range(2, 5);
+            int coinsInThisGroup = Mathf.Clamp(Mathf.FloorToInt((upperY - lowerY) / verticalSpacing), 2, 4);
+
 
             for (int j = 0; j < coinsInThisGroup; j++)
             {

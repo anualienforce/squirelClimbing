@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class BackgroundMusic : MonoBehaviour
 {
-    public AudioClip bgMusic;    // Assign your background music clip here
-    public float volume = 0.5f;  // Set volume
+    public AudioClip bgMusic;
+    public float volume = 0.5f;
 
     private static BackgroundMusic instance;
     private AudioSource audioSource;
 
+    public static BackgroundMusic Instance => instance;   // <-- Add this
+
     private void Awake()
     {
-        // Singleton pattern
         if (instance == null)
         {
             instance = this;
@@ -24,7 +25,20 @@ public class BackgroundMusic : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject); // Prevent duplicates
+            Destroy(gameObject);
         }
+    }
+
+    // NEW: Turn OFF music
+    public void StopMusic()
+    {
+        audioSource.Stop();
+    }
+
+    // NEW: Turn ON music
+    public void PlayMusic()
+    {
+        if (!audioSource.isPlaying)
+            audioSource.Play();
     }
 }

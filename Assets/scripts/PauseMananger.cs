@@ -8,6 +8,7 @@ public class PauseManager : MonoBehaviour
 {
     [Header("UI References")]
     public GameObject pausePanel;
+    public GameObject inpausePanel;
     public Button pauseButton;
     public Button resumeButton;
     public Button homeButton;
@@ -48,6 +49,7 @@ public class PauseManager : MonoBehaviour
     {
         isPaused = true;
         pausePanel.SetActive(true);
+        inpausePanel.SetActive(true);
 
         // Display high score
         if (highScoreText != null)
@@ -60,16 +62,16 @@ public class PauseManager : MonoBehaviour
         float timer = 0f;
         Vector3 startScale = Vector3.zero;
         Vector3 endScale = Vector3.one;
-        pausePanel.transform.localScale = startScale;
+        inpausePanel.transform.localScale = startScale;
 
         while (timer < animDuration)
         {
             timer += Time.unscaledDeltaTime;
-            pausePanel.transform.localScale = Vector3.Lerp(startScale, endScale, timer / animDuration);
+            inpausePanel.transform.localScale = Vector3.Lerp(startScale, endScale, timer / animDuration);
             yield return null;
         }
 
-        pausePanel.transform.localScale = endScale;
+        inpausePanel.transform.localScale = endScale;
 
         // Freeze game
         Time.timeScale = 0f;
@@ -87,11 +89,11 @@ public class PauseManager : MonoBehaviour
         while (timer < animDuration)
         {
             timer += Time.unscaledDeltaTime;
-            pausePanel.transform.localScale = Vector3.Lerp(startScale, endScale, timer / animDuration);
+            inpausePanel.transform.localScale = Vector3.Lerp(startScale, endScale, timer / animDuration);
             yield return null;
         }
 
-        pausePanel.transform.localScale = endScale;
+        inpausePanel.transform.localScale = endScale;
         pausePanel.SetActive(false);
         isPaused = false;
     }
