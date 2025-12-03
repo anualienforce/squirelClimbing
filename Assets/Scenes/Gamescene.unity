@@ -4841,6 +4841,9 @@ MonoBehaviour:
   targetText: {fileID: 2054252552}
   moveSpeed: 1
   disableX: -10
+  upwardSpeed: 0.01
+  speedIncreaseRate: 0.1
+  maxUpwardSpeed: 10
 --- !u!4 &1435526805
 Transform:
   m_ObjectHideFlags: 0
