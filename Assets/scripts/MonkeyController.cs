@@ -201,10 +201,21 @@ public class MonkeyController : MonoBehaviour
     {
         if (BackgroundMusic.Instance != null)
             BackgroundMusic.Instance.StopMusic();
+
+        // existing delay before showing panel
         yield return new WaitForSeconds(1.5f);
         gameOverPanel.SetActive(true);
 
+        // extra delay after panel is visible
+        yield return new WaitForSeconds(1f);
+
+        // show interstitial if available
+        if (AdsManager.Instance != null && AdsManager.Instance.IsInterstitialAdLoaded())
+        {
+            AdsManager.Instance.ShowInterstitialAd();
+        }
     }
+
 
     public void ReplayGame()
     {
