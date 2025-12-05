@@ -11,7 +11,7 @@ public class AdsManager : MonoBehaviour
     [HideInInspector] public static AdsManager Instance;
 
     private const string GamesPlayedKey = "GamesPlayed";
-    private const int MinGamesBeforeAds = 5;
+    private const int MinGamesBeforeAds = 2;
 
     private void Awake()
     {
