@@ -41,8 +41,23 @@ public class PauseManager : MonoBehaviour
 
     public void OnHomeButton()
     {
+        //Time.timeScale = 1f;
+      
+
         Time.timeScale = 1f;
-        SceneManager.LoadScene("menu"); // change to your scene
+
+        if (AdsManager.Instance != null && AdsManager.Instance.IsInterstitialAdLoaded())
+        {
+            AdsManager.Instance.ShowInterstitialAd(() =>
+            {
+                SceneManager.LoadScene("menu"); // change to your scene
+            });
+        }
+        else
+        {
+            
+            SceneManager.LoadScene("menu"); // change to your scene
+        }
     }
 
     IEnumerator ShowPausePanel()

@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class MovingTarget : MonoBehaviour
@@ -21,18 +21,21 @@ public class MovingTarget : MonoBehaviour
     {
         int highScore = PlayerPrefs.GetInt("HighScore", 0);
 
-        if (highScore > 0)
-        {
-            if (targetText != null)
-                targetText.text = $"Target: {highScore}+";
+        // Always start from 5, then +3 steps: 5+, 8+, 11+, ...
+        int target = 50;
 
-            shouldMove = true;
-        }
-        else
+        while (highScore > target)
         {
-            gameObject.SetActive(false);
+            target += 30;
         }
+
+        if (targetText != null)
+            targetText.text = $"Target: {target}+";
+
+        shouldMove = true;
     }
+
+
 
     private void Update()
     {

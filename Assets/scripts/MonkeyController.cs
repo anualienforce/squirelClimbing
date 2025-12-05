@@ -36,6 +36,7 @@ public class MonkeyController : MonoBehaviour
     public AudioClip dieSound;
     public AudioClip taptoplaySound;
 
+
     public static bool checkTap;
     private void Awake()
     {
@@ -94,6 +95,7 @@ public class MonkeyController : MonoBehaviour
             if (scoreTimer >= baseScoreInterval)
             {
                 score++;
+               
                 scoreTimer -= baseScoreInterval;
                 UpdateScoreUI();
             }
@@ -168,6 +170,12 @@ public class MonkeyController : MonoBehaviour
                 highScore = score;
             }
             PlayerPrefs.Save();
+            // Count this run for ads
+            if (AdsManager.Instance != null)
+            {
+                AdsManager.Instance.IncrementGamesPlayed();
+            }
+
 
             // Update Game Over panel UI texts
             if (gameOverCurrentScoreText != null)
@@ -206,21 +214,27 @@ public class MonkeyController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         gameOverPanel.SetActive(true);
 
-        // extra delay after panel is visible
-        yield return new WaitForSeconds(1f);
-
-        // show interstitial if available
-        if (AdsManager.Instance != null && AdsManager.Instance.IsInterstitialAdLoaded())
-        {
-            AdsManager.Instance.ShowInterstitialAd();
-        }
+       
+       
     }
 
 
     public void ReplayGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        if (AdsManager.Instance != null && AdsManager.Instance.IsInterstitialAdLoaded())
+        {
+            AdsManager.Instance.ShowInterstitialAd(() =>
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            });
+        }
+        else
+        {
+            // If ad is not ready, just replay game
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     public void Taptoplay()
