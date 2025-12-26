@@ -1,0 +1,42 @@
+workflows:
+  ios-simulator-workflow:
+    name: Unity iOS Simulator Build
+    instance_type: mac_mini_m2
+    max_build_duration: 120
+
+    environment:
+      unity: 2022.3.15f1
+      xcode: latest
+
+    scripts:
+    
+      - name: Build iOS project with Unity
+        script: |
+          unity-editor \
+            -batchmode \
+            -quit \
+            -projectPath . \
+            -executeMethod BuildiOS.Build \
+            -logFile unity.log
+
+      
+      - name: Build iOS Simulator app
+        script: |
+          cd Builds/iOS
+          xcodebuild \
+            -workspace Unity-iPhone.xcworkspace \
+            -scheme Unity-iPhone \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -derivedDataPath build
+
+      
+      - name: Verify simulator app architecture
+        script: |
+          APP=$(find Builds/iOS/build -name "*.app" | head -n 1)
+          echo "App found at $APP"
+          lipo -info "$APP/Unity-iPhone"
+
+    artifacts:
+      - Builds/iOS/build/**/Products/Debug-iphonesimulator/*.app
+      - unity.log
