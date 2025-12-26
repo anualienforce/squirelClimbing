@@ -5,20 +5,23 @@ workflows:
     max_build_duration: 120
 
     environment:
-      unity: 2023.1.17f1
+      unity: 2022.3.17f1
       xcode: latest
 
     scripts:
-    
+      - name: Verify Unity is available
+        script: |
+          which unity-editor
+          unity-editor --version
+
       - name: Build iOS project with Unity
         script: |
-          "$UNITY_PATH/Unity.app/Contents/MacOS/Unity" \
-          -batchmode \
-          -quit \
-          -projectPath . \
-          -executeMethod BuildiOS.Build \
-          -logFile unity.log
-
+          unity-editor \
+            -batchmode \
+            -quit \
+            -projectPath . \
+            -executeMethod BuildiOS.Build \
+            -logFile unity.log
 
       - name: Build iOS Simulator app
         script: |
@@ -29,13 +32,6 @@ workflows:
             -configuration Debug \
             -sdk iphonesimulator \
             -derivedDataPath build
-
-      
-      - name: Verify simulator app architecture
-        script: |
-          APP=$(find Builds/iOS/build -name "*.app" | head -n 1)
-          echo "App found at $APP"
-          lipo -info "$APP/Unity-iPhone"
 
     artifacts:
       - Builds/iOS/build/**/Products/Debug-iphonesimulator/*.app
