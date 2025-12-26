@@ -5,7 +5,7 @@ workflows:
     max_build_duration: 120
 
     environment:
-      unity: latest
+      unity: 2023.1.17f1
       xcode: latest
 
     scripts:
