@@ -12,12 +12,13 @@ workflows:
     
       - name: Build iOS project with Unity
         script: |
-          unity-editor \
-            -batchmode \
-            -quit \
-            -projectPath . \
-            -executeMethod BuildiOS.Build \
-            -logFile unity.log
+          "$UNITY_PATH/Unity.app/Contents/MacOS/Unity" \
+          -batchmode \
+          -quit \
+          -projectPath . \
+          -executeMethod BuildiOS.Build \
+          -logFile unity.log
+
 
       - name: Build iOS Simulator app
         script: |
